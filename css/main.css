@@ -554,14 +554,7 @@ pre[class*='highlight'] {
   font-weight: bold;
 }
 #menubutton {
-  display: flex;
-  opacity: 0;
-  bottom: 32px;
-  right: 32px;
-}
-#menubutton .button-icon {
-  font-size: 1.15rem;
-  font-weight: bold;
+  visibility: hidden;
 }
 #popbutton {
   z-index: 10;
@@ -582,13 +575,7 @@ pre[class*='highlight'] {
   font-size: 1rem;
 }
 #searchbutton {
-  display: flex;
-  opacity: 0;
-  bottom: 32px;
-  right: 32px;
-}
-#searchbutton .button-icon {
-  font-size: 1rem;
+  visibility: hidden;
 }
 .postbutton {
   cursor: pointer;
