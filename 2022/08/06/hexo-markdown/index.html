@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="前端技術的重點整理">
+  <link 
+    rel="icon" 
+    href="/img/Logo.png">
+  <title>Markdown - 快速掌握常用語法</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="Markdown - 快速掌握常用語法">
+    
+    
+      <meta 
+        property="og:url" 
+        content="http://example.com/2022/08/06/hexo-markdown/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="/img/Hexo-Banner.png">
+    
+    
+      <meta 
+        property="og:img" 
+        content="&lt;p&gt;本篇將帶你快速掌握 Markdown 語法，讓你流暢撰寫文章！">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2022-08-06">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-08-16">
+      <meta 
+        property="og:article:author" 
+        content="Chen yao">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="Hexo">
+        
+          <meta 
+            property="og:article:tag" 
+            content="Markdown">
+        
+      
+    
+  
+  
+  <link rel="preload" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" as="style" >
+  <link rel="preload" href="/css/main.css" as="style" >
+  
+  <link rel="modulepreload" href="//instant.page/5.1.0">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  
+  
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+      
+      
+      
+      
+        
+        
+        
+        <script>
+          function prismThemeChange() {
+            if(document.getElementById('theme-color').dataset.mode === 'dark') {
+              if(document.querySelector('[data-prism]')) {
+                changeCSS('/js/lib/prism/prism-tomorrow.min.css', '[data-prism]', 'prism-tomorrow');
+              } else {
+                loadCSS('/js/lib/prism/prism-tomorrow.min.css', 'prism', 'prism-tomorrow');
+              }
+            } else {
+              if(document.querySelector('[data-prism]')) {
+                changeCSS('/js/lib/prism/prism.min.css', '[data-prism]', 'prism');
+              } else {
+                loadCSS('/js/lib/prism/prism.min.css', 'prism', 'prism');
+              }
+            }
+          }
+          prismThemeChange()
+        </script>
+      
+      
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+        prismThemeChange();
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+        prismThemeChange();
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+        prismThemeChange();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <a class="navbar-logo-main" href="/">
+      <!-- 
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="/img/Logo.png" 
+          alt="blog logo">
+       -->
+      <span class="navbar-logo-dsc">ChenYao's Blog</span>
+      </a>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          首頁
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          存檔
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          標籤
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          分類
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          關於
+        
+      </a>
+    
+    <button 
+      class="navbar-menu-item darknavbar navbar-menu-btn" 
+      aria-label="Toggle dark mode"
+      id="dark"
+      title="淺色主題和深色主題切換">
+      <i class="fa-solid fa-cloud-moon fa-lg"></i>
+    </button>
+    <!-- <button 
+      class="navbar-menu-item searchnavbar navbar-menu-btn" 
+      aria-label="Toggle search"
+      id="search">
+      <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i>
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+        class="iconify iconify--ion" width="28" height="28" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M256 80a176 176 0 1 0 176 176A176 176 0 0 0 256 80Z"></path>
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M232 160a72 72 0 1 0 72 72a72 72 0 0 0-72-72Z"></path>
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"
+          d="M283.64 283.64L336 336"></path>
+      </svg>
+    </button> -->
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="/img/Logo.png" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">Chen yao</p>
+<p class="author-description">Frontend Developer</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>2</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>3</span>
+    <span>分類</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>4</span>
+    <span>標籤</span>
+  </a>
+</div>
+
+  <div class="author-card-society">
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://github.com/Yao618">
+          <i class="iconfont fa-brands fa-github"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a href="mailto:nightclassyao@gmail.com">
+          <i class="iconfont fa-solid fa-envelope"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://codepen.io/">
+          <i class="iconfont fa-brands fa-codepen"></i>
+        </a>
+      </div>
+    
+  </div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目錄
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-%E4%BB%8B%E7%B4%B9%EF%BC%9A"><span class="toc-text">Markdown 介紹：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C%E5%AD%97%EF%BC%9A"><span class="toc-text">標題字：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A"><span class="toc-text">展示效果：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-1"><span class="toc-text">標題 1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-2"><span class="toc-text">標題 2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-3"><span class="toc-text">標題 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-4"><span class="toc-text">標題 4</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-5"><span class="toc-text">標題 5</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-6"><span class="toc-text">標題 6</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E5%BC%8F%E5%AD%97%E9%AB%94%E6%95%88%E6%9E%9C%EF%BC%9A"><span class="toc-text">各式字體效果：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%9C%E9%AB%94%EF%BC%9A"><span class="toc-text">斜體：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%97%E9%AB%94%EF%BC%9A"><span class="toc-text">粗體：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%97%E9%AB%94%E5%85%BC%E5%85%B7%E6%96%9C%E9%AB%94%EF%BC%9A"><span class="toc-text">粗體兼具斜體：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%AA%E9%99%A4%E7%B7%9A%EF%BC%9A"><span class="toc-text">刪除線：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A-1"><span class="toc-text">展示效果：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%A3%E7%B5%90%EF%BC%9A"><span class="toc-text">連結：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-1"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A"><span class="toc-text">效果展示：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%8E%E5%B1%A4%E5%BC%8F%E5%8D%80%E5%A1%8A%EF%BC%9A"><span class="toc-text">階層式區塊：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-2"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A-1"><span class="toc-text">效果展示：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CheckBox%EF%BC%9A"><span class="toc-text">CheckBox：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-3"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A-2"><span class="toc-text">效果展示：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%85%E5%96%AE%E5%88%97%E8%A1%A8%EF%BC%9A"><span class="toc-text">清單列表：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-4"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A-3"><span class="toc-text">效果展示：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%9A%84%E9%A1%AF%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A"><span class="toc-text">程式碼的顯示效果：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%96%AE%E8%A1%8C%E7%A8%8B%E5%BC%8F%E7%A2%BC%EF%BC%9A"><span class="toc-text">單行程式碼：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-5"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A-2"><span class="toc-text">展示效果：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%80%E5%A1%8A%E7%A8%8B%E5%BC%8F%E7%A2%BC%EF%BC%9A"><span class="toc-text">區塊程式碼：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-6"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A-3"><span class="toc-text">展示效果：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E6%8F%90%E7%A4%BA%EF%BC%9A"><span class="toc-text">消息提示：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-text">使用方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A-4"><span class="toc-text">展示效果：</span></a></li></ol></li></ol></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="fa-solid fa-folder-open" 
+      style="padding-right: 5px;">
+    </i>分類
+  </div>
+  <div class="categories-list">
+    
+      <a href="/categories/React/">
+        <div class="categories-list-item">
+          React
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Hexo/">
+        <div class="categories-list-item">
+          Hexo
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/">
+        <div class="categories-list-item">
+          前端框架
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="fa-solid fa-tags" 
+      style="padding-right: 5px;">
+    </i>熱門標籤
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
+      </a>
+    
+      <a 
+        href="/tags/Hexo/" 
+        title="Hexo">
+        <div class="tags-list-item">Hexo</div>
+      </a>
+    
+      <a 
+        href="/tags/React-Router/" 
+        title="React-Router">
+        <div class="tags-list-item">React-Router</div>
+      </a>
+    
+      <a 
+        href="/tags/React/" 
+        title="React">
+        <div class="tags-list-item">React</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <main class="main-column">
+              
+  <div class="image-wrapper">
+    <img 
+      src="/img/Hexo-Banner.png" 
+      data-src="/img/Hexo-Banner.png"
+      srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+      class="image lozad"
+      alt="Markdown - 快速掌握常用語法 thumbnail">
+  </div>
+
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      Markdown - 快速掌握常用語法
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2022-08-05T16:00:00.000Z">
+      <i 
+        class="fa-solid fa-calendar" 
+        style="margin-right: 5px;">
+      </i>
+      <span>2022-08-06</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/Hexo/" 
+          class="post-meta-link">
+          Hexo
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>1k 個字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="fa-solid fa-tags" 
+          style="margin-right: 3px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/Hexo/" 
+            class="post-meta-link">
+            Hexo
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/tags/Markdown/" 
+            class="post-meta-link">
+            Markdown
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <p>本篇將帶你快速掌握 Markdown 語法，讓你流暢撰寫文章！ <span id="more"></span></p>
+<h1 id="Markdown-介紹："><a href="#Markdown-介紹：" class="headerlink" title="Markdown 介紹："></a>Markdown 介紹：</h1><p>Markdown 是一種輕量級標記式語言，同時它的目標是實現「易讀易寫」，擁有純文字的標記特性。<br>目前許多網站都廣泛使用 Markdown 來撰寫說明文件，如 GitHub 裡面常見的 README.md，<br>其中 .md 表示的就是 Markdown，就讓我們來看看常用的語法吧！</p>
+<h2 id="標題字："><a href="#標題字：" class="headerlink" title="標題字："></a><strong>標題字：</strong></h2><p>Markdown 的標題總共分為 6 個層級，依據 HTML 的結構對應為 <code>&lt;h1&gt; ~ &lt;h6&gt;</code><br>一共有 1 ~ 6 個 #，代表 H1 ~ H6。</p>
+<h3 id="使用方式："><a href="#使用方式：" class="headerlink" title="使用方式："></a>使用方式：</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 標題 1</span>
+<span class="token comment">## 標題 2</span>
+<span class="token comment">### 標題 3</span>
+<span class="token comment">#### 標題 4</span>
+<span class="token comment">##### 標題 5</span>
+<span class="token comment">###### 標題 6</span></code></pre>
+<h3 id="展示效果："><a href="#展示效果：" class="headerlink" title="展示效果："></a>展示效果：</h3><div class="post-note note-"><h1 id="標題-1"><a href="#標題-1" class="headerlink" title="標題 1"></a>標題 1</h1><h2 id="標題-2"><a href="#標題-2" class="headerlink" title="標題 2"></a>標題 2</h2><h3 id="標題-3"><a href="#標題-3" class="headerlink" title="標題 3"></a>標題 3</h3><h4 id="標題-4"><a href="#標題-4" class="headerlink" title="標題 4"></a>標題 4</h4><h5 id="標題-5"><a href="#標題-5" class="headerlink" title="標題 5"></a>標題 5</h5><h6 id="標題-6"><a href="#標題-6" class="headerlink" title="標題 6"></a>標題 6</h6></div>
+
+<div class="post-note note-warning"><p>備註：標題1 和 標題2 有底線是因為 Hexo Theme 自帶的 CSS 效果</p></div>
+
+<h2 id="各式字體效果："><a href="#各式字體效果：" class="headerlink" title="各式字體效果："></a><strong>各式字體效果：</strong></h2><p>字體樣式使用上的方法很接近，都是使用特定符號在文字前後包起來，語法如下。</p>
+<h3 id="斜體："><a href="#斜體：" class="headerlink" title="斜體："></a>斜體：</h3><pre class="language-bash" data-language="bash"><code class="language-bash">*your text*</code></pre>
+
+<h3 id="粗體："><a href="#粗體：" class="headerlink" title="粗體："></a>粗體：</h3><pre class="language-bash" data-language="bash"><code class="language-bash">**your text**</code></pre>
+
+<h3 id="粗體兼具斜體："><a href="#粗體兼具斜體：" class="headerlink" title="粗體兼具斜體："></a>粗體兼具斜體：</h3><pre class="language-bash" data-language="bash"><code class="language-bash">***your text***</code></pre>
+
+<h3 id="刪除線："><a href="#刪除線：" class="headerlink" title="刪除線："></a>刪除線：</h3><pre class="language-bash" data-language="bash"><code class="language-bash">~your text~</code></pre>
+
+<h3 id="展示效果：-1"><a href="#展示效果：-1" class="headerlink" title="展示效果："></a>展示效果：</h3><blockquote>
+<p>這是一段展示文字，<em>這是斜體文字</em>，<strong>這是粗體文字</strong>，<em><strong>粗體兼具斜體</strong></em>，這是具有 <del>刪除線</del> 的文字。</p>
+</blockquote>
+<h2 id="連結："><a href="#連結：" class="headerlink" title="連結："></a><strong>連結：</strong></h2><p>撰寫文章時若要引導讀者前往某個網站，即可在適當的段落插入連結，方便讀者隨時參考相關的內容。</p>
+<h3 id="使用方式：-1"><a href="#使用方式：-1" class="headerlink" title="使用方式："></a>使用方式：</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>連結名稱<span class="token punctuation">]</span><span class="token punctuation">(</span>https://google.com<span class="token punctuation">)</span></code></pre>
+
+<h3 id="效果展示："><a href="#效果展示：" class="headerlink" title="效果展示："></a>效果展示：</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://google.com/">連結名稱</a></p>
+</blockquote>
+<h2 id="階層式區塊："><a href="#階層式區塊：" class="headerlink" title="階層式區塊："></a><strong>階層式區塊：</strong></h2><p>此語法通常運用在表現結構或功能關西上，是相當好用的呈現方法。</p>
+<h3 id="使用方式：-2"><a href="#使用方式：-2" class="headerlink" title="使用方式："></a>使用方式：</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">></span>第一層的顯示區塊
+<span class="token operator">>></span>第二層的顯示區塊
+<span class="token operator">>></span>第二層的顯示區塊
+<span class="token operator">>></span><span class="token operator">></span>第三層的顯示區塊</code></pre>
+
+<h3 id="效果展示：-1"><a href="#效果展示：-1" class="headerlink" title="效果展示："></a>效果展示：</h3><blockquote>
+<p>第一層的顯示區塊</p>
+<blockquote>
+<p>第二層的顯示區塊<br>第二層的顯示區塊</p>
+<blockquote>
+<p>第三層的顯示區塊</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="CheckBox："><a href="#CheckBox：" class="headerlink" title="CheckBox："></a><strong>CheckBox：</strong></h2><p>CheckBox 常用在確認事情是否完成，中括號若有 x 代表此項目是打勾狀態。</p>
+<h3 id="使用方式：-3"><a href="#使用方式：-3" class="headerlink" title="使用方式："></a>使用方式：</h3><pre class="language-bash" data-language="bash"><code class="language-bash">- <span class="token punctuation">[</span>x<span class="token punctuation">]</span> 這是一個已打勾的項目
+- <span class="token punctuation">[</span> <span class="token punctuation">]</span> 這是一個未完成的項目</code></pre>
+
+<h3 id="效果展示：-2"><a href="#效果展示：-2" class="headerlink" title="效果展示："></a>效果展示：</h3><ul>
+<li><input checked="" disabled="" type="checkbox"> 這是一個已打勾的項目</li>
+<li><input disabled="" type="checkbox"> 這是一個未完成的項目</li>
+</ul>
+<h2 id="清單列表："><a href="#清單列表：" class="headerlink" title="清單列表："></a><strong>清單列表：</strong></h2><h3 id="使用方式：-4"><a href="#使用方式：-4" class="headerlink" title="使用方式："></a>使用方式：</h3><p>此語法常用於同個項目或主題之下要展示出多個內容時，即可使用列表來表示。<br>例如：開發 APP 時客戶需要哪些功能、專案有哪些內容需要修改。</p>
+<pre class="language-none"><code class="language-none">* 第一項目 
+  * 第一項目的文字內容
+  * 第一項目的文字內容
+* 第二項目 
+  * 第二項目的文字內容
+  * 第二項目的文字內容</code></pre>
+
+<h3 id="效果展示：-3"><a href="#效果展示：-3" class="headerlink" title="效果展示："></a>效果展示：</h3><ul>
+<li>第一項目 <ul>
+<li>第一項目的文字內容</li>
+<li>第一項目的文字內容</li>
+</ul>
+</li>
+<li>第二項目 <ul>
+<li>第二項目的文字內容</li>
+<li>第二項目的文字內容</li>
+</ul>
+</li>
+</ul>
+<h2 id="程式碼的顯示效果："><a href="#程式碼的顯示效果：" class="headerlink" title="程式碼的顯示效果："></a><strong>程式碼的顯示效果：</strong></h2><p>許多開發者在撰寫文章時，經常需要把程式碼展示出來，<br>Markdown 正好提供了我們能夠輸出具有 Highlight 效果的語法。</p>
+<h3 id="單行程式碼："><a href="#單行程式碼：" class="headerlink" title="單行程式碼："></a>單行程式碼：</h3><p>如果要標記一小段行內程式碼，只要在文字前後用反引號把它包起來（&#96;）即可。</p>
+<h3 id="使用方式：-5"><a href="#使用方式：-5" class="headerlink" title="使用方式："></a>使用方式：</h3><pre class="language-none"><code class="language-none">javascript 中的 &#96;alert(&quot;hello world&quot;);&#96; 可顯示提示視窗。</code></pre>
+
+<h3 id="展示效果：-2"><a href="#展示效果：-2" class="headerlink" title="展示效果："></a>展示效果：</h3><blockquote>
+<p>javascript 中的 <code>alert(&quot;hello world&quot;);</code> 可顯示提示視窗。</p>
+</blockquote>
+<h3 id="區塊程式碼："><a href="#區塊程式碼：" class="headerlink" title="區塊程式碼："></a>區塊程式碼：</h3><p>三個連續的反引號（&#96;）用在開頭和結尾，即可展示區塊程式碼。<br>在反引號後面加上程式語言的名稱，可擁有對應程式語言的 Highlight 效果</p>
+<h3 id="使用方式：-6"><a href="#使用方式：-6" class="headerlink" title="使用方式："></a>使用方式：</h3><pre class="language-none"><code class="language-none">&#96;&#96;&#96;javascript
+function multiply(num1,num2) &#123;
+  let result &#x3D; num1 * num2;
+  return result;
+&#125;
+&#96;&#96;&#96;</code></pre>
+
+<h3 id="展示效果：-3"><a href="#展示效果：-3" class="headerlink" title="展示效果："></a>展示效果：</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">multiply</span><span class="token punctuation">(</span><span class="token parameter">num1<span class="token punctuation">,</span>num2</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">let</span> result <span class="token operator">=</span> num1 <span class="token operator">*</span> num2<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="消息提示："><a href="#消息提示：" class="headerlink" title="消息提示："></a><strong>消息提示：</strong></h2><p>寫作時需要若需要添加補充或是警告消息，可在 Markdown 中如下書寫，<br>並將其中的 style 修改為對應的名稱即可。</p>
+<h3 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">&#123;</span>% note style %<span class="token punctuation">&#125;</span>
+輸入內容<span class="token punctuation">..</span>.
+<span class="token punctuation">&#123;</span>% endnote %<span class="token punctuation">&#125;</span></code></pre>
+
+<h3 id="展示效果：-4"><a href="#展示效果：-4" class="headerlink" title="展示效果："></a>展示效果：</h3><div class="post-note note-style"><p>這是未更改 style 的樣式</p></div>
+
+<div class="post-note note-primary"><p>這是 primary 提示</p></div>
+
+<div class="post-note note-success"><p>這是 success 提示</p></div>
+
+<div class="post-note note-info"><p>這是 info 提示</p></div>
+
+<div class="post-note note-warning"><p>這是 warning 提示</p></div>
+
+<div class="post-note note-danger"><p>這是 danger 提示</p></div>
+
+
+  </div>
+  <div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/2022/08/12/react-router-1/" 
+        class="nav-link">
+        <i class="fa-solid fa-arrow-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">React Router - 認識名詞 SPA &amp; 環境設定 </div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目錄
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-%E4%BB%8B%E7%B4%B9%EF%BC%9A"><span class="toc-text">Markdown 介紹：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C%E5%AD%97%EF%BC%9A"><span class="toc-text">標題字：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A"><span class="toc-text">展示效果：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-1"><span class="toc-text">標題 1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-2"><span class="toc-text">標題 2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-3"><span class="toc-text">標題 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-4"><span class="toc-text">標題 4</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-5"><span class="toc-text">標題 5</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-6"><span class="toc-text">標題 6</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E5%BC%8F%E5%AD%97%E9%AB%94%E6%95%88%E6%9E%9C%EF%BC%9A"><span class="toc-text">各式字體效果：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%9C%E9%AB%94%EF%BC%9A"><span class="toc-text">斜體：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%97%E9%AB%94%EF%BC%9A"><span class="toc-text">粗體：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%97%E9%AB%94%E5%85%BC%E5%85%B7%E6%96%9C%E9%AB%94%EF%BC%9A"><span class="toc-text">粗體兼具斜體：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%AA%E9%99%A4%E7%B7%9A%EF%BC%9A"><span class="toc-text">刪除線：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A-1"><span class="toc-text">展示效果：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%A3%E7%B5%90%EF%BC%9A"><span class="toc-text">連結：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-1"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A"><span class="toc-text">效果展示：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%8E%E5%B1%A4%E5%BC%8F%E5%8D%80%E5%A1%8A%EF%BC%9A"><span class="toc-text">階層式區塊：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-2"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A-1"><span class="toc-text">效果展示：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CheckBox%EF%BC%9A"><span class="toc-text">CheckBox：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-3"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A-2"><span class="toc-text">效果展示：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%85%E5%96%AE%E5%88%97%E8%A1%A8%EF%BC%9A"><span class="toc-text">清單列表：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-4"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A-3"><span class="toc-text">效果展示：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%9A%84%E9%A1%AF%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A"><span class="toc-text">程式碼的顯示效果：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%96%AE%E8%A1%8C%E7%A8%8B%E5%BC%8F%E7%A2%BC%EF%BC%9A"><span class="toc-text">單行程式碼：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-5"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A-2"><span class="toc-text">展示效果：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%80%E5%A1%8A%E7%A8%8B%E5%BC%8F%E7%A2%BC%EF%BC%9A"><span class="toc-text">區塊程式碼：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-6"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A-3"><span class="toc-text">展示效果：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E6%8F%90%E7%A4%BA%EF%BC%9A"><span class="toc-text">消息提示：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-text">使用方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A-4"><span class="toc-text">展示效果：</span></a></li></ol></li></ol></li></ol>
+</div>
+            </main>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目錄
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-%E4%BB%8B%E7%B4%B9%EF%BC%9A"><span class="toc-text">Markdown 介紹：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C%E5%AD%97%EF%BC%9A"><span class="toc-text">標題字：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A"><span class="toc-text">展示效果：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-1"><span class="toc-text">標題 1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-2"><span class="toc-text">標題 2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-3"><span class="toc-text">標題 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-4"><span class="toc-text">標題 4</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-5"><span class="toc-text">標題 5</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A8%99%E9%A1%8C-6"><span class="toc-text">標題 6</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E5%BC%8F%E5%AD%97%E9%AB%94%E6%95%88%E6%9E%9C%EF%BC%9A"><span class="toc-text">各式字體效果：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%9C%E9%AB%94%EF%BC%9A"><span class="toc-text">斜體：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%97%E9%AB%94%EF%BC%9A"><span class="toc-text">粗體：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%97%E9%AB%94%E5%85%BC%E5%85%B7%E6%96%9C%E9%AB%94%EF%BC%9A"><span class="toc-text">粗體兼具斜體：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%AA%E9%99%A4%E7%B7%9A%EF%BC%9A"><span class="toc-text">刪除線：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A-1"><span class="toc-text">展示效果：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%A3%E7%B5%90%EF%BC%9A"><span class="toc-text">連結：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-1"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A"><span class="toc-text">效果展示：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%8E%E5%B1%A4%E5%BC%8F%E5%8D%80%E5%A1%8A%EF%BC%9A"><span class="toc-text">階層式區塊：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-2"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A-1"><span class="toc-text">效果展示：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CheckBox%EF%BC%9A"><span class="toc-text">CheckBox：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-3"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A-2"><span class="toc-text">效果展示：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%85%E5%96%AE%E5%88%97%E8%A1%A8%EF%BC%9A"><span class="toc-text">清單列表：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-4"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A-3"><span class="toc-text">效果展示：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%9A%84%E9%A1%AF%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A"><span class="toc-text">程式碼的顯示效果：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%96%AE%E8%A1%8C%E7%A8%8B%E5%BC%8F%E7%A2%BC%EF%BC%9A"><span class="toc-text">單行程式碼：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-5"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A-2"><span class="toc-text">展示效果：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%80%E5%A1%8A%E7%A8%8B%E5%BC%8F%E7%A2%BC%EF%BC%9A"><span class="toc-text">區塊程式碼：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-6"><span class="toc-text">使用方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A-3"><span class="toc-text">展示效果：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E6%8F%90%E7%A4%BA%EF%BC%9A"><span class="toc-text">消息提示：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-text">使用方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C%EF%BC%9A-4"><span class="toc-text">展示效果：</span></a></li></ol></li></ol></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="fa-solid fa-file-lines" 
+      style="padding-right: 5px;">
+    </i>最新文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-08-12</div>
+        <a href="/2022/08/12/react-router-1/"><div class="recent-posts-item-content">React Router - 認識名詞 SPA &amp; 環境設定</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-08-06</div>
+        <a href="/2022/08/06/hexo-markdown/"><div class="recent-posts-item-content">Markdown - 快速掌握常用語法</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020
+          
+          
+                - 
+                2022
+          
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          ChenYao's Blog
+        </a>
+      </div>
+    </div>
+
+    
+    
+    
+    
+</footer>
+ 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="fa-solid fa-angles-left"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="fa-solid fa-bars"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="fa-solid fa-cloud-moon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+    
+    <script src="//instant.page/5.1.0" type="module"
+      integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+    
+    
+  </body>
+</html>
